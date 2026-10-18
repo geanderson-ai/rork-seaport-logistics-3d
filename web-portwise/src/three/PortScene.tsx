@@ -68,7 +68,7 @@ export default function PortScene() {
     <Canvas
       shadows
       dpr={DPR}
-      camera={{ fov: 30, near: 1, far: 2400, position: [220, 280, 380] }}
+      camera={{ fov: 30, near: 1, far: 5000, position: [220, 280, 380] }}
       gl={{ antialias: true, powerPreference: "high-performance" }}
       onCreated={() => boot.mark("engine")}
       onPointerMissed={() => {
@@ -76,7 +76,7 @@ export default function PortScene() {
       }}
     >
       <color attach="background" args={[COLORS.canvas]} />
-      <fog attach="fog" args={[COLORS.canvas, 520, 1250]} />
+      <fog attach="fog" args={[COLORS.canvas, 1500, 3800]} />
       <SkyRig />
       <Suspense fallback={null}>
         <World />

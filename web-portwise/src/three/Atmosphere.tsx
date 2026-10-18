@@ -192,16 +192,16 @@ export const SkyRig = memo(function SkyRig() {
     if (scene.background instanceof THREE.Color) scene.background.copy(tmpB);
     if (scene.fog instanceof THREE.Fog) {
       scene.fog.color.copy(tmpB);
-      let near = 520;
-      let far = 1250;
-      near = THREE.MathUtils.lerp(near, 260, rain);
-      far = THREE.MathUtils.lerp(far, 900, rain);
-      near = THREE.MathUtils.lerp(near, 150, storm);
-      far = THREE.MathUtils.lerp(far, 640, storm);
-      near = THREE.MathUtils.lerp(near, 120, haze);
-      far = THREE.MathUtils.lerp(far, 760, haze);
-      near = THREE.MathUtils.lerp(near, 25, fog);
-      far = THREE.MathUtils.lerp(far, 330, fog);
+      let near = 1500;
+      let far = 3800;
+      near = THREE.MathUtils.lerp(near, 1100, rain);
+      far = THREE.MathUtils.lerp(far, 3000, rain);
+      near = THREE.MathUtils.lerp(near, 900, storm);
+      far = THREE.MathUtils.lerp(far, 2500, storm);
+      near = THREE.MathUtils.lerp(near, 800, haze);
+      far = THREE.MathUtils.lerp(far, 2400, haze);
+      near = THREE.MathUtils.lerp(near, 600, fog);
+      far = THREE.MathUtils.lerp(far, 2000, fog);
       scene.fog.near = near;
       scene.fog.far = far;
     }
