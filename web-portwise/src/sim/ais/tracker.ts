@@ -12,6 +12,13 @@ const SNAP_UNITS = 30;
 
 const tracks = new Map<string, AisTrack>(AIS_DEFS.map((d) => [d.id, new AisTrack(d)]));
 
+export function registerDynamicAisDef(d: AisVesselDef): void {
+  if (!tracks.has(d.id)) {
+    AIS_DEFS.push(d);
+    tracks.set(d.id, new AisTrack(d));
+  }
+}
+
 export const aisDef = (id: string): AisVesselDef | undefined => tracks.get(id)?.def;
 export const hasAis = (id: string): boolean => tracks.has(id);
 

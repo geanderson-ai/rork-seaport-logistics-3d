@@ -73,25 +73,27 @@ const OTHER_CARRIERS: MoveSpec[] = [
   { id: "ever-glory:departure", kind: "departure", name: "EVER GLORY", short: "EVER GLORY", line: "Evergreen", port: "Chittagong", berth: 7, planned: DAY + 6 * H },
 ];
 
-const SPECS: MoveSpec[] = [
-  ...VESSELS.flatMap((v): MoveSpec[] =>
-    (["arrival", "departure"] as const).map((kind) => {
-      const id = `${v.id}:${kind}`;
-      return {
-        id,
-        kind,
-        vesselId: v.id,
-        name: v.name,
-        short: v.short,
-        line: v.line,
-        port: kind === "arrival" ? v.from : v.to,
-        berth: v.berth,
-        planned: clockOf(PLANNED_OVERRIDE[id] ?? (kind === "arrival" ? v.etb : v.etd)),
-      };
-    }),
-  ),
-  ...OTHER_CARRIERS,
-];
+function getSpecs(): MoveSpec[] {
+  return [
+    ...VESSELS.flatMap((v): MoveSpec[] =>
+      (["arrival", "departure"] as const).map((kind) => {
+        const id = `${v.id}:${kind}`;
+        return {
+          id,
+          kind,
+          vesselId: v.id,
+          name: v.name,
+          short: v.short,
+          line: v.line,
+          port: kind === "arrival" ? v.from : v.to,
+          berth: v.berth,
+          planned: clockOf(PLANNED_OVERRIDE[id] ?? (kind === "arrival" ? v.etb : v.etd)),
+        };
+      }),
+    ),
+    ...OTHER_CARRIERS,
+  ];
+}
 
 const vesselOf = (id?: string): Vessel | undefined => (id ? VESSELS.find((v) => v.id === id) : undefined);
 const kn = (sog: number): string => `${sog.toFixed(1)} kn`;
@@ -215,7 +217,7 @@ function departure(spec: MoveSpec, t: number): Movement {
 
 /** Every movement of the day at sim time t, in time order (actual time once done, else the estimate). */
 export function portSchedule(t: number): Movement[] {
-  return SPECS.map((s) => (s.kind === "arrival" ? arrival(s, t) : departure(s, t))).sort((a, b) => (a.actual ?? a.est) - (b.actual ?? b.est));
+  return getSpecs().map((s) => (s.kind === "arrival" ? arrival(s, t) : departure(s, t))).sort((a, b) => (a.actual ?? a.est) - (b.actual ?? b.est));
 }
 
 export interface ScheduleSummary {

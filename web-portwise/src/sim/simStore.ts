@@ -7,6 +7,7 @@ import { ORIENT_LOTUS, PORT_CALLS, PORT_EVENTS, T_MK_CARGO_DONE, T_MK_SAILED, T_
 import type { VoyagePhase } from "./ais/voyage";
 import { aisDef, aisFix, newFix } from "./ais/tracker";
 import { weatherFx } from "./weatherFx";
+import { scheduleUpcomingVessels } from "@/sim/traffic/dynamicScheduler";
 
 export { ARRIVAL_SECONDS, MIN_T, SIM_START_SEC, fmtClock, fmtDuration };
 
@@ -323,6 +324,8 @@ function buildActivity(t: number): ActivityItem[] {
 }
 
 function recompute(t: number): void {
+  const currentHours = (SIM_START_SEC + t) / 3600;
+  scheduleUpcomingVessels(currentHours, 24);
   const acc: Record<string, VesselLive> = Object.fromEntries(VESSELS.map((v) => [v.id, { discharged: v.discharged, loaded: v.loaded }]));
   let teu = BASE_TEU;
   QUAY_CRANES.forEach((c, idx) => {
