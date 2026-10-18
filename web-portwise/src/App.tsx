@@ -14,6 +14,7 @@ import Yard from "./pages/Yard";
 import Shipment from "./pages/Shipment";
 import Logistics from "./pages/Logistics";
 import NotFound from "./pages/NotFound";
+import Portonave from "./pages/Portonave";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <PortProvider>
           <Routes>
+            <Route path="/portonave" element={<Portonave />} />
             <Route element={<AppShell />}>
               <Route path="/" element={<Overview />} />
               <Route path="/vessels" element={<Vessels />} />

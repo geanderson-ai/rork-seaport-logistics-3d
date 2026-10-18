@@ -20,6 +20,8 @@ Watch vessels arrive, quay cranes work, yard blocks fill up, trucks clear the ga
 
 ## Table of contents
 
+> **Local adaptation:** this checkout adds a modular Singapore / Portonave selector. See [LOCAL-ADAPTATION.md](LOCAL-ADAPTATION.md) for routes, scope, validation and the planned Blender integration. The upstream public demo is unchanged.
+
 - [Overview](#overview)
 - [Features](#features)
 - [Screens](#screens)

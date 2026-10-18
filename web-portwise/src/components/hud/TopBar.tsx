@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { Bell, ChevronDown, Container, LayoutDashboard, MapPin, Network, Package, Search, Ship } from "lucide-react";
+import { Bell, Container, LayoutDashboard, Network, Package, Search, Ship } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { PortSelector } from "@/components/PortSelector";
 import { cn } from "@/lib/utils";
 import { SIM_START_SEC, fmtClock, timeControl, useClock } from "@/sim/simStore";
 import { usePort } from "@/state/PortProvider";
-import { ALERTS, BERTH_COUNT, CARRIER_NAME, PORT_NAME } from "@/data/port";
+import { ALERTS, CARRIER_NAME } from "@/data/port";
 import { AlertRow } from "./AlertsPanel";
 
 const TABS = [
@@ -98,23 +98,7 @@ export function TopBar() {
       </button>
 
       <div className="flex shrink-0 items-center gap-1 sm:gap-2 md:ml-auto">
-        <DropdownMenu>
-          <DropdownMenuTrigger className="hidden items-center gap-2 whitespace-nowrap rounded-full border border-hairline bg-paper px-3 py-1.5 text-[12.5px] font-semibold text-ink hover:bg-sand 2xl:flex">
-            <MapPin className="h-3.5 w-3.5 text-signal" />
-            {PORT_NAME} · Singapore
-            <ChevronDown className="h-3.5 w-3.5 text-slate" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-64">
-            <DropdownMenuLabel className="text-[11px] uppercase tracking-wider text-slate">Authorized terminals</DropdownMenuLabel>
-            <DropdownMenuItem className="flex items-center justify-between font-semibold">
-              {PORT_NAME} · {BERTH_COUNT} berths
-              <span className="text-[11px] font-medium text-moss">Viewing</span>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem disabled>Tuas Port · not connected</DropdownMenuItem>
-            <DropdownMenuItem disabled>Jurong Port · not connected</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <PortSelector />
 
         <LiveClock />
 
